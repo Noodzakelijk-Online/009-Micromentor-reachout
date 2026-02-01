@@ -38,9 +38,7 @@ export default function Home() {
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2 font-bold text-xl tracking-tighter">
-            <div className="h-8 w-8 bg-primary flex items-center justify-center text-primary-foreground">
-              <Zap className="h-5 w-5" />
-            </div>
+            <img src="/images/maro-logo.svg" alt="MARO Logo" className="h-8 w-8" />
             <span>MARO <span className="text-primary">Automated</span></span>
           </div>
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
@@ -368,9 +366,7 @@ export default function Home() {
         <div className="container grid md:grid-cols-4 gap-8">
           <div className="space-y-4">
             <div className="flex items-center gap-2 font-bold text-lg tracking-tighter">
-              <div className="h-6 w-6 bg-primary flex items-center justify-center text-primary-foreground">
-                <Zap className="h-4 w-4" />
-              </div>
+              <img src="/images/maro-logo.svg" alt="MARO Logo" className="h-6 w-6" />
               <span>MARO</span>
             </div>
             <p className="text-sm text-muted-foreground">
