@@ -32,6 +32,7 @@ const PRICING = {
 const TIME_PER_MESSAGE_MIN = 2; // Minutes to manually send one message
 const FOLLOW_UPS_PER_NEW = 3; // 3 follow-ups for every 1 new message
 const RESPONSE_RATE = 0.015; // 1.5% response rate
+const HOURLY_RATE_2026 = 25; // $25/hr base rate in 2026
 
 export default function ResourceDemo() {
   const [isRunning, setIsRunning] = useState(false);
@@ -42,6 +43,7 @@ export default function ResourceDemo() {
   // ROI Metrics
   const [timeSavedMin, setTimeSavedMin] = useState(0);
   const [wastedTimeAvoidedMin, setWastedTimeAvoidedMin] = useState(0);
+  const [moneySaved, setMoneySaved] = useState(0);
   
   // Resource metrics
   const [cpuLoad, setCpuLoad] = useState(0);
@@ -96,6 +98,10 @@ export default function ResourceDemo() {
             // This represents time that would have been spent on unresponsive leads
             const wastedAvoided = totalSaved * (1 - RESPONSE_RATE);
             setWastedTimeAvoidedMin(wastedAvoided);
+
+            // Money saved = (Total time saved in hours) * Hourly Rate
+            const money = (totalSaved / 60) * HOURLY_RATE_2026;
+            setMoneySaved(money);
             
             return newCount;
           });
@@ -135,6 +141,7 @@ export default function ResourceDemo() {
     setElectricityRate(0);
     setTimeSavedMin(0);
     setWastedTimeAvoidedMin(0);
+    setMoneySaved(0);
     setChartData([]);
     chartRef.current = [];
   };
@@ -240,9 +247,19 @@ export default function ResourceDemo() {
                 </div>
                 <span className="font-mono text-muted-foreground">{formatTime(wastedTimeAvoidedMin)}</span>
               </div>
+
+              <div className="flex justify-between items-center pt-2 border-t border-dashed mt-2">
+                <div className="flex items-center gap-2 text-sm font-medium text-green-600 dark:text-green-400">
+                  <span className="text-lg">$</span>
+                  <span>Est. Money Saved</span>
+                </div>
+                <span className="font-mono font-bold text-green-600 dark:text-green-400 text-lg">
+                  ${moneySaved.toFixed(2)}
+                </span>
+              </div>
               
               <div className="text-[10px] text-muted-foreground mt-2 italic">
-                *Based on 2min/msg manual effort & 1.5% response rate
+                *Based on $25/hr (2026 avg) & 2min/msg manual effort
               </div>
             </div>
             
