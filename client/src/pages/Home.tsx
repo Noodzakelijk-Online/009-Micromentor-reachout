@@ -39,7 +39,7 @@ export default function Home() {
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2 font-bold text-xl tracking-tighter">
             <img src="/images/maro-logo.svg" alt="MARO Logo" className="h-8 w-8" />
-            <span>MARO <span className="text-primary">Automated</span></span>
+            <span>MARO</span>
           </div>
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
             <button onClick={() => scrollToSection('features')} className="hover:text-primary transition-colors">Features</button>
