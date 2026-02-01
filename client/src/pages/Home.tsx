@@ -15,12 +15,23 @@ import {
   Activity,
   Database,
   Wifi,
-  Menu
+  Menu,
+  Moon,
+  Sun
 } from "lucide-react";
 import { motion } from "framer-motion";
 import ResourceDemo from "@/components/ResourceDemo";
+import { useTheme } from "@/contexts/ThemeContext";
+import ScrollProgress from "@/components/ScrollProgress";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export default function Home() {
+  const { theme, toggleTheme } = useTheme();
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -36,6 +47,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-background font-sans selection:bg-primary/20">
       {/* Navigation */}
+      <ScrollProgress />
       <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md shadow-sm transition-all duration-300">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2 font-bold text-xl tracking-tighter group cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
@@ -58,6 +70,9 @@ export default function Home() {
               Specs
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </button>
+            <Button variant="ghost" size="icon" onClick={toggleTheme} className="ml-2 hover:bg-primary/10">
+              {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </Button>
           </nav>
           <div className="flex items-center gap-4">
             <Button onClick={handleDownload} className="hidden md:flex rounded-none font-mono text-xs font-bold uppercase tracking-wider shadow-lg hover:shadow-primary/25 transition-all hover:-translate-y-0.5">
@@ -363,12 +378,48 @@ export default function Home() {
             </div>
           </div>
         </section>
+        
+        {/* FAQ Section */}
+        <section className="py-20 border-t bg-background">
+          <div className="container max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold tracking-tighter mb-4">Frequently Asked Questions</h2>
+              <p className="text-muted-foreground">Everything you need to know about MARO and resource optimization.</p>
+            </div>
+            
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="item-1">
+                <AccordionTrigger>How does the pricing model work?</AccordionTrigger>
+                <AccordionContent>
+                  MARO operates on a strict "pay-for-what-you-use" model. You are billed based on the exact CPU cycles, RAM usage duration, and bandwidth consumed during your outreach campaigns. There are no monthly subscription fees.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-2">
+                <AccordionTrigger>Is my data secure?</AccordionTrigger>
+                <AccordionContent>
+                  Absolutely. MARO runs entirely locally in your browser. No message content or personal data is ever sent to our servers. We only track resource usage metrics for billing purposes.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-3">
+                <AccordionTrigger>Can I set usage limits?</AccordionTrigger>
+                <AccordionContent>
+                  Yes! You can configure strict daily or campaign-level caps on CPU load, RAM usage, and total cost. The extension will automatically pause if these limits are reached.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-4">
+                <AccordionTrigger>Does it work with other platforms?</AccordionTrigger>
+                <AccordionContent>
+                  Currently, MARO is optimized specifically for MicroMentor. We are actively developing modules for LinkedIn and other outreach platforms, which will be available as add-ons.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        </section>
 
         {/* CTA Section */}
-        <section className="py-20 border-t">
-          <div className="container text-center">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-6">Ready to Optimize Your Outreach?</h2>
-            <p className="text-xl text-muted-foreground max-w-[600px] mx-auto mb-10">
+        <section className="py-20 border-t bg-muted/30">
+          <div className="container text-center max-w-3xl mx-auto">
+            <h2 className="text-3xl font-bold tracking-tighter mb-6">Ready to Optimize Your Outreach?</h2>   <p className="text-xl text-muted-foreground max-w-[600px] mx-auto mb-10">
               Join thousands of mentors who have automated their workflow with MARO.
             </p>
             <Button size="lg" onClick={handleDownload} className="rounded-none h-16 px-10 text-lg font-mono font-bold uppercase tracking-wider shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all">

@@ -16,15 +16,13 @@ import {
   CheckCircle2,
   Mail
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
-// Pricing constants
+// Pricing constants (Cost per Hour basis)
 const PRICING = {
-  CPU: 0.0002, // per second
-  RAM: 0.00002, // per MB-hr
-  STORAGE: 0.0002, // per MB-mo
-  BANDWIDTH: 0.0002, // per MB
+  CPU: 0.0002, // per % load per hour
+  RAM: 0.00002, // per MB per hour
+  BANDWIDTH: 0.0002, // per MB per hour (simulated rate)
   ELECTRICITY: 0.24 // per kWh
 };
 
@@ -37,8 +35,8 @@ export default function ResourceDemo() {
   // Resource metrics
   const [cpuLoad, setCpuLoad] = useState(0);
   const [ramUsage, setRamUsage] = useState(24); // Base 24MB
-  const [bandwidth, setBandwidth] = useState(0);
-  const [electricity, setElectricity] = useState(0);
+  const [bandwidthRate, setBandwidthRate] = useState(0); // MB/hr
+  const [electricityRate, setElectricityRate] = useState(0); // kWh/hr
   
   // Chart data
   const [chartData, setChartData] = useState<any[]>([]);
@@ -53,23 +51,25 @@ export default function ResourceDemo() {
         // Simulate resource fluctuations based on activity
         const newCpu = Math.min(100, Math.max(5, Math.random() * 30 + (speed * 10)));
         const newRam = Math.min(128, Math.max(24, ramUsage + (Math.random() * 2 - 0.5)));
-        const newBandwidth = bandwidth + (Math.random() * 0.5 * speed);
-        const newElectricity = electricity + (newCpu * 0.0001 * speed);
+        const newBandwidthRate = (Math.random() * 5 * speed); // MB/hr rate
+        const newElectricityRate = (newCpu * 0.001 * speed); // kWh/hr rate
         
         // Update state
         setCpuLoad(newCpu);
         setRamUsage(newRam);
-        setBandwidth(newBandwidth);
-        setElectricity(newElectricity);
+        setBandwidthRate(newBandwidthRate);
+        setElectricityRate(newElectricityRate);
         
-        // Calculate cost increment
-        const cpuCost = (newCpu / 100) * PRICING.CPU * (speed / 10);
-        const ramCost = (newRam / 1024) * PRICING.RAM * (speed / 10);
-        const bandwidthCost = (Math.random() * 0.5 * speed) * PRICING.BANDWIDTH;
-        const electricityCost = (newCpu * 0.0001 * speed) * PRICING.ELECTRICITY;
+        // Calculate cost increment (per second for the total counter)
+        const hourlyCost = 
+          (newCpu * PRICING.CPU) + 
+          (newRam * PRICING.RAM) + 
+          (newBandwidthRate * PRICING.BANDWIDTH) + 
+          (newElectricityRate * PRICING.ELECTRICITY);
+          
+        const secondCost = hourlyCost / 3600;
         
-        const stepCost = (cpuCost + ramCost + bandwidthCost + electricityCost) * 2; // x2 pricing model
-        setTotalCost(prev => prev + stepCost);
+        setTotalCost(prev => prev + secondCost);
         
         // Simulate message sending
         if (Math.random() < 0.1 * speed) {
@@ -83,20 +83,22 @@ export default function ResourceDemo() {
         const newDataPoint = {
           time: timeStr,
           cpu: newCpu,
-          cost: totalCost * 1000 // Scale for visibility
+          cost: hourlyCost * 1000 // Scale for visibility
         };
         
         chartRef.current = [...chartRef.current.slice(-20), newDataPoint];
         setChartData(chartRef.current);
         
-      }, 1000 / speed);
+      }, 1000 / speed); // Speed affects update frequency for visual effect
     } else {
       // Idle state
       setCpuLoad(2);
+      setBandwidthRate(0);
+      setElectricityRate(0.001);
     }
     
     return () => clearInterval(interval);
-  }, [isRunning, speed, ramUsage, bandwidth, electricity, totalCost]);
+  }, [isRunning, speed, ramUsage]);
 
   const handleReset = () => {
     setIsRunning(false);
@@ -104,8 +106,8 @@ export default function ResourceDemo() {
     setTotalCost(0);
     setCpuLoad(0);
     setRamUsage(24);
-    setBandwidth(0);
-    setElectricity(0);
+    setBandwidthRate(0);
+    setElectricityRate(0);
     setChartData([]);
     chartRef.current = [];
   };
@@ -176,9 +178,9 @@ export default function ResourceDemo() {
                   {messagesSent}
                 </div>
               </div>
-              <div className="bg-primary/5 border border-primary/20 p-4 rounded-lg">
+              <div className="bg-primary/5 border border-primary/20 p-4 rounded-lg overflow-hidden">
                 <div className="text-xs text-primary font-mono mb-1">TOTAL COST</div>
-                <div className="text-2xl font-bold text-primary">
+                <div className="text-2xl font-bold text-primary truncate" title={`$${totalCost.toFixed(8)}`}>
                   ${totalCost.toFixed(6)}
                 </div>
               </div>
@@ -217,7 +219,7 @@ export default function ResourceDemo() {
                 </div>
                 <Progress value={cpuLoad} className="h-2" />
                 <div className="text-xs text-muted-foreground font-mono text-right">
-                  ${(cpuLoad * PRICING.CPU / 100).toFixed(6)}/sec
+                  ${(cpuLoad * PRICING.CPU).toFixed(6)}/hr
                 </div>
               </div>
               
@@ -243,11 +245,11 @@ export default function ResourceDemo() {
                     <Wifi className="h-4 w-4 text-muted-foreground" />
                     <span>Bandwidth</span>
                   </div>
-                  <span className="font-mono">{bandwidth.toFixed(2)} MB</span>
+                  <span className="font-mono">{bandwidthRate.toFixed(2)} MB/hr</span>
                 </div>
-                <Progress value={(bandwidth % 10) * 10} className="h-2" />
+                <Progress value={(bandwidthRate / 10) * 100} className="h-2" />
                 <div className="text-xs text-muted-foreground font-mono text-right">
-                  ${(bandwidth * PRICING.BANDWIDTH).toFixed(6)} total
+                  ${(bandwidthRate * PRICING.BANDWIDTH).toFixed(6)}/hr
                 </div>
               </div>
               
@@ -258,11 +260,11 @@ export default function ResourceDemo() {
                     <Zap className="h-4 w-4 text-muted-foreground" />
                     <span>Electricity</span>
                   </div>
-                  <span className="font-mono">{electricity.toFixed(4)} kWh</span>
+                  <span className="font-mono">{electricityRate.toFixed(4)} kW</span>
                 </div>
-                <Progress value={(electricity % 1) * 100} className="h-2" />
+                <Progress value={(electricityRate / 0.1) * 100} className="h-2" />
                 <div className="text-xs text-muted-foreground font-mono text-right">
-                  ${(electricity * PRICING.ELECTRICITY).toFixed(6)} total
+                  ${(electricityRate * PRICING.ELECTRICITY).toFixed(6)}/hr
                 </div>
               </div>
             </div>
