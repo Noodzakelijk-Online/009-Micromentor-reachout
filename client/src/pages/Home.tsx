@@ -419,8 +419,9 @@ export default function Home() {
         {/* CTA Section */}
         <section className="py-20 border-t bg-muted/30">
           <div className="container text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold tracking-tighter mb-6">Ready to Optimize Your Outreach?</h2>   <p className="text-xl text-muted-foreground max-w-[600px] mx-auto mb-10">
-              Join thousands of mentors who have automated their workflow with MARO.
+            <h2 className="text-3xl font-bold tracking-tighter mb-6">Ready to Optimize Your Outreach?</h2>
+            <p className="text-xl text-muted-foreground max-w-[600px] mx-auto mb-10">
+              Join thousands of users to make reaching out to mentors a breeze and a non-time consuming effort.
             </p>
             <Button size="lg" onClick={handleDownload} className="rounded-none h-16 px-10 text-lg font-mono font-bold uppercase tracking-wider shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all">
               Download Now
