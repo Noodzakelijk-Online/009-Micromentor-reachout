@@ -29,7 +29,7 @@ export default function Home() {
 
   const handleDownload = () => {
     // In a real scenario, this would trigger the download
-    window.location.href = "/mentor-messenger-magic-enhanced.zip";
+    window.location.href = "/maro-extension.zip";
   };
 
   return (
@@ -41,7 +41,7 @@ export default function Home() {
             <div className="h-8 w-8 bg-primary flex items-center justify-center text-primary-foreground">
               <Zap className="h-5 w-5" />
             </div>
-            <span>Mentor Messenger <span className="text-primary">Magic</span></span>
+            <span>MARO <span className="text-primary">Automated</span></span>
           </div>
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
             <button onClick={() => scrollToSection('features')} className="hover:text-primary transition-colors">Features</button>
@@ -72,7 +72,7 @@ export default function Home() {
                 <span className="text-primary">Minimize Overhead.</span>
               </h1>
               <p className="text-xl text-muted-foreground max-w-[600px] leading-relaxed">
-                The ultra-efficient browser extension for MicroMentor.org. Automate your messaging workflow while tracking every CPU cycle and byte of data.
+                Micromentor Automated Reach Out (MARO). The ultra-efficient browser extension for MicroMentor.org. Automate your messaging workflow while tracking every CPU cycle and byte of data.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button size="lg" onClick={handleDownload} className="rounded-none h-14 px-8 text-base font-mono font-bold uppercase tracking-wider">
@@ -351,7 +351,7 @@ export default function Home() {
           <div className="container text-center">
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-6">Ready to Optimize Your Outreach?</h2>
             <p className="text-xl text-muted-foreground max-w-[600px] mx-auto mb-10">
-              Join thousands of mentors who have automated their workflow with Mentor Messenger Magic.
+              Join thousands of mentors who have automated their workflow with MARO.
             </p>
             <Button size="lg" onClick={handleDownload} className="rounded-none h-16 px-10 text-lg font-mono font-bold uppercase tracking-wider shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all">
               Download Now
@@ -371,10 +371,10 @@ export default function Home() {
               <div className="h-6 w-6 bg-primary flex items-center justify-center text-primary-foreground">
                 <Zap className="h-4 w-4" />
               </div>
-              <span>Mentor Messenger Magic</span>
+              <span>MARO</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Automating mentorship connections with precision and efficiency.
+              Micromentor Automated Reach Out. Automating mentorship connections with precision and efficiency.
             </p>
           </div>
           
@@ -405,7 +405,7 @@ export default function Home() {
           </div>
         </div>
         <div className="container mt-12 pt-8 border-t text-center text-sm text-muted-foreground">
-          © 2026 Mentor Messenger Magic. All rights reserved.
+          © 2026 MARO. All rights reserved.
         </div>
       </footer>
     </div>
