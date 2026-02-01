@@ -17,6 +17,7 @@ import {
   Wifi
 } from "lucide-react";
 import { motion } from "framer-motion";
+import ResourceDemo from "@/components/ResourceDemo";
 
 export default function Home() {
   const scrollToSection = (id: string) => {
@@ -121,6 +122,23 @@ export default function Home() {
                 <div className="mt-1 text-right font-mono text-xs text-muted-foreground">12% Load</div>
               </motion.div>
             </div>
+          </div>
+        </section>
+
+        {/* Interactive Demo Section */}
+        <section className="py-20 border-b bg-muted/10">
+          <div className="container">
+            <div className="flex flex-col items-center text-center mb-12">
+              <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary/10 text-primary hover:bg-primary/20 mb-4">
+                <Activity className="mr-1 h-3 w-3" />
+                <span>Interactive Demo</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">See the Savings in Real-Time</h2>
+              <p className="text-muted-foreground max-w-[700px]">
+                Experience our transparent pricing model. Start the simulation to see how we track every resource and calculate costs down to the micro-cent.
+              </p>
+            </div>
+            <ResourceDemo />
           </div>
         </section>
 
