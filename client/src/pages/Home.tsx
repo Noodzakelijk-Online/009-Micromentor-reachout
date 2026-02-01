@@ -159,7 +159,7 @@ export default function Home() {
         </section>
 
         {/* Interactive Demo Section */}
-        <section className="py-20 border-b bg-muted/10">
+        <section className="pt-20 pb-10 border-b-0 bg-muted/10">
           <div className="container">
             <div className="flex flex-col items-center text-center mb-12">
               <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary/10 text-primary hover:bg-primary/20 mb-4">
@@ -172,6 +172,107 @@ export default function Home() {
               </p>
             </div>
             <ResourceDemo />
+          </div>
+        </section>
+
+        {/* Pricing Section - Moved immediately below Demo */}
+        <section id="pricing" className="pb-20 pt-4 bg-muted/10 border-b">
+          <div className="container">
+            <div className="flex flex-col items-center text-center mb-8">
+              <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 mb-4">
+                LIVE DEMO ABOVE
+              </div>
+              <p className="text-muted-foreground max-w-[700px]">
+                Check the interactive simulation above to see the real-time cost vs. savings breakdown. Our users typically see a <span className="font-bold text-foreground">200x Return on Spend</span> for every campaign.
+              </p>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-12 items-start max-w-5xl mx-auto">
+              <div className="space-y-6">
+                <h3 className="text-2xl font-bold tracking-tight">Transparent Resource Rates</h3>
+                <p className="text-muted-foreground">
+                  No monthly subscriptions. No hidden fees. Our revolutionary pricing model charges you based strictly on the computing resources you consume.
+                </p>
+                
+                <div className="space-y-4">
+                  <div className="flex gap-4">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                      <Activity className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-mono font-bold">Resource Formula</h4>
+                      <p className="text-sm text-muted-foreground">Actual Price = Resources Used × 2</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-4">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                      <Shield className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-mono font-bold">Billing Notifications</h4>
+                      <p className="text-sm text-muted-foreground">Receive detailed email reports. No complex dashboards to manage.</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-4">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                      <CheckCircle2 className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-mono font-bold">Pay-As-You-Go</h4>
+                      <p className="text-sm text-muted-foreground">Scale up or down instantly. Costs align perfectly with your usage.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <Card className="border-2 shadow-lg">
+                <CardHeader className="bg-muted/30 border-b">
+                  <CardTitle className="font-mono text-lg">Resource Pricing Table</CardTitle>
+                  <CardDescription>Current rates per unit</CardDescription>
+                </CardHeader>
+                <CardContent className="p-0">
+                  <div className="divide-y">
+                    <div className="flex justify-between p-4 hover:bg-muted/20 transition-colors">
+                      <div className="flex items-center gap-2 text-sm">
+                        <Cpu className="h-4 w-4 text-muted-foreground" />
+                        <span>CPU Time</span>
+                      </div>
+                      <div className="font-mono font-bold">$0.0002 / sec</div>
+                    </div>
+                    <div className="flex justify-between p-4 hover:bg-muted/20 transition-colors">
+                      <div className="flex items-center gap-2 text-sm">
+                        <Database className="h-4 w-4 text-muted-foreground" />
+                        <span>RAM Usage</span>
+                      </div>
+                      <div className="font-mono font-bold">$0.00002 / MB-hr</div>
+                    </div>
+                    <div className="flex justify-between p-4 hover:bg-muted/20 transition-colors">
+                      <div className="flex items-center gap-2 text-sm">
+                        <Database className="h-4 w-4 text-muted-foreground" />
+                        <span>Storage</span>
+                      </div>
+                      <div className="font-mono font-bold">$0.0002 / MB-mo</div>
+                    </div>
+                    <div className="flex justify-between p-4 hover:bg-muted/20 transition-colors">
+                      <div className="flex items-center gap-2 text-sm">
+                        <Wifi className="h-4 w-4 text-muted-foreground" />
+                        <span>Bandwidth</span>
+                      </div>
+                      <div className="font-mono font-bold">$0.0002 / MB</div>
+                    </div>
+                    <div className="flex justify-between p-4 bg-primary/5">
+                      <div className="flex items-center gap-2 text-sm font-medium text-primary">
+                        <Zap className="h-4 w-4" />
+                        <span>Electricity</span>
+                      </div>
+                      <div className="font-mono font-bold text-primary">$0.24 / kWh</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </section>
 
@@ -206,11 +307,11 @@ export default function Home() {
                   <div className="h-12 w-12 bg-primary/10 flex items-center justify-center mb-4">
                     <Cpu className="h-6 w-6 text-primary" />
                   </div>
-                  <CardTitle className="font-mono text-lg">Resource Monitoring</CardTitle>
+                  <CardTitle className="font-mono text-lg">Resource Optimization</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground mb-4">
-                    Real-time tracking of CPU, RAM, storage, and bandwidth. Pay only for the exact resources your outreach consumes.
+                    Uses 50% less RAM than standard browser tabs. Optimized for low-end hardware and battery life.
                   </p>
                   <img src="/images/feature-resources.png" alt="Resources" className="w-full h-32 object-contain opacity-80" />
                 </CardContent>
@@ -221,11 +322,11 @@ export default function Home() {
                   <div className="h-12 w-12 bg-primary/10 flex items-center justify-center mb-4">
                     <BarChart3 className="h-6 w-6 text-primary" />
                   </div>
-                  <CardTitle className="font-mono text-lg">Deep Analytics</CardTitle>
+                  <CardTitle className="font-mono text-lg">Detailed Analytics</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground mb-4">
-                    Track response rates, message effectiveness, and ROI. Data-driven insights to optimize your mentorship strategy.
+                    Track every message sent, response rates, and resource consumption in real-time dashboards.
                   </p>
                   <img src="/images/feature-analytics.png" alt="Analytics" className="w-full h-32 object-contain opacity-80" />
                 </CardContent>
@@ -234,200 +335,92 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Pricing Section */}
-        <section id="pricing" className="py-20 border-y relative overflow-hidden">
-          <div className="absolute inset-0 -z-10 opacity-5">
-            <img src="/images/pricing-bg.png" alt="Background" className="w-full h-full object-cover" />
-          </div>
+        {/* Technical Specs */}
+        <section id="specs" className="py-20 border-t">
           <div className="container">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">Pay Pennies. Save Hundreds.</h2>
-              <p className="text-lg text-muted-foreground max-w-[700px] mx-auto">
-                Why pay a flat subscription when you can pay for exactly what you use? 
-                Spend less than a dollar to save hundreds in billable hours.
-              </p>
-            </div>
-
-            <div className="text-center mb-16 max-w-4xl mx-auto">
-              <div className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full font-mono text-sm font-bold mb-6">
-                LIVE DEMO ABOVE
-              </div>
-              <p className="text-muted-foreground">
-                Check the interactive simulation above to see the real-time cost vs. savings breakdown. 
-                Our users typically see a <span className="font-bold text-foreground">200x Return on Spend</span> for every campaign.
-              </p>
-            </div>
-
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <h3 className="text-2xl font-bold tracking-tighter mb-6">Transparent Resource Rates</h3>
-                <p className="text-muted-foreground mb-8">
-                  No monthly subscriptions. No hidden fees. Our revolutionary pricing model charges you based strictly on the computing resources you consume.
-                </p>
-                
-                <div className="space-y-6">
-                  <div className="flex gap-4">
-                    <div className="h-10 w-10 shrink-0 bg-primary/10 flex items-center justify-center">
-                      <Activity className="h-5 w-5 text-primary" />
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-6">Technical Specifications</h2>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-4">
+                    <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-1">
+                      <div className="h-2 w-2 rounded-full bg-primary"></div>
                     </div>
                     <div>
-                      <h3 className="font-bold font-mono text-lg">Resource Formula</h3>
-                      <p className="text-muted-foreground">Actual Price = Resources Used × 2</p>
+                      <h3 className="font-bold">Browser Compatibility</h3>
+                      <p className="text-muted-foreground">Chrome 88+, Edge 90+, Brave, Opera</p>
                     </div>
                   </div>
-                  
-                  <div className="flex gap-4">
-                    <div className="h-10 w-10 shrink-0 bg-primary/10 flex items-center justify-center">
-                      <Shield className="h-5 w-5 text-primary" />
+                  <div className="flex items-start gap-4">
+                    <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-1">
+                      <div className="h-2 w-2 rounded-full bg-primary"></div>
                     </div>
                     <div>
-                      <h3 className="font-bold font-mono text-lg">Billing Notifications</h3>
-                      <p className="text-muted-foreground">Receive detailed email reports. No complex dashboards to manage.</p>
+                      <h3 className="font-bold">Security</h3>
+                      <p className="text-muted-foreground">Local storage encryption (AES-256), No external data transmission</p>
                     </div>
                   </div>
-                  
-                  <div className="flex gap-4">
-                    <div className="h-10 w-10 shrink-0 bg-primary/10 flex items-center justify-center">
-                      <CheckCircle2 className="h-5 w-5 text-primary" />
+                  <div className="flex items-start gap-4">
+                    <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-1">
+                      <div className="h-2 w-2 rounded-full bg-primary"></div>
                     </div>
                     <div>
-                      <h3 className="font-bold font-mono text-lg">Pay-As-You-Go</h3>
-                      <p className="text-muted-foreground">Scale up or down instantly. Costs align perfectly with your usage.</p>
+                      <h3 className="font-bold">Performance</h3>
+                      <p className="text-muted-foreground">&lt; 50MB RAM usage, Background worker optimization</p>
                     </div>
                   </div>
                 </div>
               </div>
-              
-              <Card className="rounded-none border-2 shadow-2xl bg-background/80 backdrop-blur">
-                <CardHeader className="border-b bg-muted/50">
-                  <CardTitle className="font-mono text-xl">Resource Pricing Table</CardTitle>
-                  <CardDescription>Current rates per unit</CardDescription>
-                </CardHeader>
-                <CardContent className="p-0">
-                  <div className="divide-y">
-                    <div className="flex justify-between p-4 hover:bg-muted/30 transition-colors">
-                      <div className="flex items-center gap-2">
-                        <Cpu className="h-4 w-4 text-muted-foreground" />
-                        <span className="font-mono text-sm">CPU Time</span>
-                      </div>
-                      <span className="font-mono font-bold">$0.0002 / sec</span>
-                    </div>
-                    <div className="flex justify-between p-4 hover:bg-muted/30 transition-colors">
-                      <div className="flex items-center gap-2">
-                        <Database className="h-4 w-4 text-muted-foreground" />
-                        <span className="font-mono text-sm">RAM Usage</span>
-                      </div>
-                      <span className="font-mono font-bold">$0.00002 / MB-hr</span>
-                    </div>
-                    <div className="flex justify-between p-4 hover:bg-muted/30 transition-colors">
-                      <div className="flex items-center gap-2">
-                        <Database className="h-4 w-4 text-muted-foreground" />
-                        <span className="font-mono text-sm">Storage</span>
-                      </div>
-                      <span className="font-mono font-bold">$0.0002 / MB-mo</span>
-                    </div>
-                    <div className="flex justify-between p-4 hover:bg-muted/30 transition-colors">
-                      <div className="flex items-center gap-2">
-                        <Wifi className="h-4 w-4 text-muted-foreground" />
-                        <span className="font-mono text-sm">Bandwidth</span>
-                      </div>
-                      <span className="font-mono font-bold">$0.0002 / MB</span>
-                    </div>
-                    <div className="flex justify-between p-4 hover:bg-muted/30 transition-colors bg-primary/5">
-                      <div className="flex items-center gap-2">
-                        <Zap className="h-4 w-4 text-primary" />
-                        <span className="font-mono text-sm font-bold text-primary">Electricity</span>
-                      </div>
-                      <span className="font-mono font-bold text-primary">$0.24 / kWh</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <div className="bg-muted p-8 font-mono text-sm rounded-lg overflow-hidden relative">
+                <div className="absolute top-0 left-0 w-full h-8 bg-muted-foreground/10 flex items-center px-4 gap-2">
+                  <div className="h-3 w-3 rounded-full bg-red-500"></div>
+                  <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
+                  <div className="h-3 w-3 rounded-full bg-green-500"></div>
+                </div>
+                <div className="mt-4 space-y-2 text-muted-foreground">
+                  <p><span className="text-primary">$</span> npm install maro-cli</p>
+                  <p className="text-foreground">Installing dependencies...</p>
+                  <p><span className="text-green-500">✔</span> Core engine optimized</p>
+                  <p><span className="text-green-500">✔</span> Analytics module loaded</p>
+                  <p><span className="text-green-500">✔</span> Security protocols active</p>
+                  <p className="text-foreground">MARO is ready. Start your campaign.</p>
+                  <p><span className="text-primary">$</span> _</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Specs Section */}
-        <section id="specs" className="py-20 bg-muted/30">
-          <div className="container">
-            <div className="flex flex-col items-center text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">Technical Specifications</h2>
-              <p className="text-muted-foreground max-w-[700px]">
-                Designed for compatibility and performance across modern Windows environments.
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="border bg-background p-6 space-y-4">
-                <h3 className="font-bold font-mono text-lg border-b pb-2">OS Support</h3>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-primary" /> Windows 11 (Native)</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-primary" /> Windows 10</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-primary" /> macOS (Beta)</li>
-                </ul>
-              </div>
-              
-              <div className="border bg-background p-6 space-y-4">
-                <h3 className="font-bold font-mono text-lg border-b pb-2">Browsers</h3>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-primary" /> Google Chrome</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-primary" /> Microsoft Edge</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-primary" /> Mozilla Firefox</li>
-                </ul>
-              </div>
-              
-              <div className="border bg-background p-6 space-y-4">
-                <h3 className="font-bold font-mono text-lg border-b pb-2">Security</h3>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-primary" /> AES-256-GCM Encryption</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-primary" /> Local Storage Only</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-primary" /> No External Tracking</li>
-                </ul>
-              </div>
-              
-              <div className="border bg-background p-6 space-y-4">
-                <h3 className="font-bold font-mono text-lg border-b pb-2">Performance</h3>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-primary" /> &lt; 50MB RAM Usage</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-primary" /> Background Processing</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 className="h-3 w-3 text-primary" /> Battery Optimized</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-        
         {/* FAQ Section */}
-        <section className="py-20 border-t bg-background">
-          <div className="container max-w-3xl mx-auto">
+        <section className="py-20 bg-muted/30 border-t">
+          <div className="container max-w-3xl">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold tracking-tighter mb-4">Frequently Asked Questions</h2>
-              <p className="text-muted-foreground">Everything you need to know about MARO and resource optimization.</p>
+              <p className="text-muted-foreground">Everything you need to know about MARO.</p>
             </div>
-            
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1">
-                <AccordionTrigger>How does the pricing model work?</AccordionTrigger>
+                <AccordionTrigger>Is my data secure?</AccordionTrigger>
                 <AccordionContent>
-                  MARO operates on a strict "pay-for-what-you-use" model. You are billed based on the exact CPU cycles, RAM usage duration, and bandwidth consumed during your outreach campaigns. There are no monthly subscription fees.
+                  Absolutely. MARO operates entirely locally on your machine. Your credentials and message data are encrypted using AES-256 and never leave your browser.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2">
-                <AccordionTrigger>Is my data secure?</AccordionTrigger>
+                <AccordionTrigger>How does the pricing model work?</AccordionTrigger>
                 <AccordionContent>
-                  Absolutely. MARO runs entirely locally in your browser. No message content or personal data is ever sent to our servers. We only track resource usage metrics for billing purposes.
+                  Instead of a flat monthly fee, we charge based on the actual computing resources (CPU, RAM, Bandwidth) used during your outreach campaigns. This typically amounts to pennies per campaign.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3">
-                <AccordionTrigger>Can I set usage limits?</AccordionTrigger>
+                <AccordionTrigger>Can I customize the outreach messages?</AccordionTrigger>
                 <AccordionContent>
-                  Yes! You can configure strict daily or campaign-level caps on CPU load, RAM usage, and total cost. The extension will automatically pause if these limits are reached.
+                  Yes! You can create unlimited message templates with dynamic variables (e.g., {"{FirstName}"}, {"{Company}"}) to ensure every message feels personal and authentic.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-4">
-                <AccordionTrigger>Does it work with other platforms?</AccordionTrigger>
+                <AccordionTrigger>Does it work on LinkedIn?</AccordionTrigger>
                 <AccordionContent>
-                  Currently, MARO is optimized specifically for MicroMentor. We are actively developing modules for LinkedIn and other outreach platforms, which will be available as add-ons.
+                  Currently, MARO is optimized for MicroMentor.org. A LinkedIn module is in development and will be available in the next major release.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -435,63 +428,36 @@ export default function Home() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 border-t bg-muted/30">
-          <div className="container text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold tracking-tighter mb-6">Ready to Optimize Your Outreach?</h2>
-            <p className="text-xl text-muted-foreground max-w-[600px] mx-auto mb-10">
+        <section className="py-20 border-t bg-primary text-primary-foreground">
+          <div className="container text-center">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-6">
+              Ready to Optimize Your Outreach?
+            </h2>
+            <p className="text-xl opacity-90 max-w-[600px] mx-auto mb-8">
               Join thousands of users to make reaching out to mentors a breeze and a non-time consuming effort.
             </p>
-            <Button size="lg" onClick={handleDownload} className="rounded-none h-16 px-10 text-lg font-mono font-bold uppercase tracking-wider shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all">
-              Download Now
-              <Download className="ml-2 h-6 w-6" />
+            <Button size="lg" variant="secondary" onClick={handleDownload} className="rounded-none h-14 px-8 text-base font-mono font-bold uppercase tracking-wider">
+              Get Started Now
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <p className="mt-6 text-sm text-muted-foreground font-mono">
-              v1.0.0 • Windows 11 Compatible • Secure Installer
-            </p>
           </div>
         </section>
       </main>
 
-      <footer className="border-t py-12 bg-muted/20">
-        <div className="container grid md:grid-cols-4 gap-8">
-          <div className="space-y-4">
-            <div className="flex items-center gap-2 font-bold text-lg tracking-tighter">
-              <img src="/images/maro-logo.svg" alt="MARO Logo" className="h-6 w-6" />
-              <span>MARO</span>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Micromentor Automated Reach Out. Automating mentorship connections with precision and efficiency.
-            </p>
+      <footer className="py-8 border-t bg-muted/20">
+        <div className="container flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2 font-bold">
+            <img src="/images/maro-logo.svg" alt="MARO Logo" className="h-6 w-6" />
+            <span>MARO</span>
           </div>
-          
-          <div>
-            <h4 className="font-bold mb-4">Product</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-primary">Features</a></li>
-              <li><a href="#" className="hover:text-primary">Pricing</a></li>
-              <li><a href="#" className="hover:text-primary">Changelog</a></li>
-            </ul>
+          <p className="text-sm text-muted-foreground">
+            © 2026 Micromentor Automated Reach Out. All rights reserved.
+          </p>
+          <div className="flex gap-6 text-sm text-muted-foreground">
+            <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
+            <a href="#" className="hover:text-foreground transition-colors">Terms</a>
+            <a href="#" className="hover:text-foreground transition-colors">Contact</a>
           </div>
-          
-          <div>
-            <h4 className="font-bold mb-4">Resources</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-primary">Documentation</a></li>
-              <li><a href="#" className="hover:text-primary">API Reference</a></li>
-              <li><a href="#" className="hover:text-primary">Support</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-bold mb-4">Legal</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-primary">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-primary">Terms of Service</a></li>
-            </ul>
-          </div>
-        </div>
-        <div className="container mt-12 pt-8 border-t text-center text-sm text-muted-foreground">
-          © 2026 MARO. All rights reserved.
         </div>
       </footer>
     </div>
