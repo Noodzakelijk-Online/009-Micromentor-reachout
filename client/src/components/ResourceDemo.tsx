@@ -14,7 +14,9 @@ import {
   Pause, 
   RotateCcw,
   CheckCircle2,
-  Mail
+  Mail,
+  Clock,
+  AlertTriangle
 } from "lucide-react";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
@@ -26,11 +28,20 @@ const PRICING = {
   ELECTRICITY: 0.24 // per kWh
 };
 
+// ROI Constants
+const TIME_PER_MESSAGE_MIN = 2; // Minutes to manually send one message
+const FOLLOW_UPS_PER_NEW = 3; // 3 follow-ups for every 1 new message
+const RESPONSE_RATE = 0.015; // 1.5% response rate
+
 export default function ResourceDemo() {
   const [isRunning, setIsRunning] = useState(false);
   const [speed, setSpeed] = useState(1);
   const [messagesSent, setMessagesSent] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
+  
+  // ROI Metrics
+  const [timeSavedMin, setTimeSavedMin] = useState(0);
+  const [wastedTimeAvoidedMin, setWastedTimeAvoidedMin] = useState(0);
   
   // Resource metrics
   const [cpuLoad, setCpuLoad] = useState(0);
@@ -73,7 +84,21 @@ export default function ResourceDemo() {
         
         // Simulate message sending
         if (Math.random() < 0.1 * speed) {
-          setMessagesSent(prev => prev + 1);
+          setMessagesSent(prev => {
+            const newCount = prev + 1;
+            
+            // Update ROI metrics
+            // Total time saved = messages * time per message
+            const totalSaved = newCount * TIME_PER_MESSAGE_MIN;
+            setTimeSavedMin(totalSaved);
+            
+            // Wasted time avoided = Total time saved * (1 - response rate)
+            // This represents time that would have been spent on unresponsive leads
+            const wastedAvoided = totalSaved * (1 - RESPONSE_RATE);
+            setWastedTimeAvoidedMin(wastedAvoided);
+            
+            return newCount;
+          });
         }
         
         // Update chart data
@@ -108,8 +133,18 @@ export default function ResourceDemo() {
     setRamUsage(24);
     setBandwidthRate(0);
     setElectricityRate(0);
+    setTimeSavedMin(0);
+    setWastedTimeAvoidedMin(0);
     setChartData([]);
     chartRef.current = [];
+  };
+
+  // Helper to format minutes into hours/minutes
+  const formatTime = (minutes: number) => {
+    if (minutes < 60) return `${minutes.toFixed(1)}m`;
+    const hours = Math.floor(minutes / 60);
+    const mins = (minutes % 60).toFixed(0);
+    return `${hours}h ${mins}m`;
   };
 
   return (
@@ -122,7 +157,7 @@ export default function ResourceDemo() {
               Live Resource Monitor
             </CardTitle>
             <CardDescription>
-              Simulate an outreach campaign to see real-time costs
+              Simulate an outreach campaign to see real-time costs & ROI
             </CardDescription>
           </div>
           <div className="flex items-center gap-2">
@@ -185,8 +220,33 @@ export default function ResourceDemo() {
                 </div>
               </div>
             </div>
+
+            {/* ROI Section */}
+            <div className="space-y-3 pt-2 border-t border-dashed">
+              <div className="text-xs font-mono text-muted-foreground mb-2">HUMAN COST SAVINGS</div>
+              
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-2 text-sm">
+                  <Clock className="h-4 w-4 text-blue-500" />
+                  <span>Total Time Saved</span>
+                </div>
+                <span className="font-mono font-bold">{formatTime(timeSavedMin)}</span>
+              </div>
+              
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground" title="Time that would have been spent on unresponsive leads (98.5%)">
+                  <AlertTriangle className="h-4 w-4 text-orange-500" />
+                  <span>Wasted Effort Avoided</span>
+                </div>
+                <span className="font-mono text-muted-foreground">{formatTime(wastedTimeAvoidedMin)}</span>
+              </div>
+              
+              <div className="text-[10px] text-muted-foreground mt-2 italic">
+                *Based on 2min/msg manual effort & 1.5% response rate
+              </div>
+            </div>
             
-            <div className="space-y-2">
+            <div className="space-y-2 pt-4 border-t">
               <div className="text-xs font-mono text-muted-foreground">CAMPAIGN STATUS</div>
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-sm">
