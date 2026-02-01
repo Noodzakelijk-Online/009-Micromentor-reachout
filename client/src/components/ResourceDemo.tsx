@@ -225,19 +225,11 @@ export default function ResourceDemo() {
               />
             </div>
             
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-background border p-4 rounded-lg">
-                <div className="text-xs text-muted-foreground font-mono mb-1">MESSAGES SENT</div>
-                <div className="text-2xl font-bold flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-primary" />
-                  {messagesSent}
-                </div>
-              </div>
-              <div className="bg-primary/5 border border-primary/20 p-4 rounded-lg overflow-hidden">
-                <div className="text-xs text-primary font-mono mb-1">TOTAL COST</div>
-                <div className="text-2xl font-bold text-primary truncate" title={`$${totalCost.toFixed(8)}`}>
-                  ${totalCost.toFixed(6)}
-                </div>
+            <div className="bg-background border p-4 rounded-lg">
+              <div className="text-xs text-muted-foreground font-mono mb-1">MESSAGES SENT</div>
+              <div className="text-2xl font-bold flex items-center gap-2">
+                <Mail className="h-4 w-4 text-primary" />
+                {messagesSent}
               </div>
             </div>
 
@@ -275,161 +267,129 @@ export default function ResourceDemo() {
                 *Based on your rate & 2min/msg manual effort
               </div>
             </div>
+          </div>
 
-            {/* Real-time ROI Comparison */}
-            <div className="grid grid-cols-2 gap-4 pt-4 border-t">
-              <div className="bg-primary/5 border border-primary/20 rounded-lg p-3">
-                <div className="text-[10px] font-mono text-primary uppercase mb-1 flex items-center gap-1">
-                  <Zap className="h-3 w-3" /> Cost
+          {/* Visualization & Metrics */}
+          <div className="lg:col-span-2 p-6 flex flex-col h-full">
+            <div className="mb-6">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="font-mono text-sm font-bold">RESOURCE USAGE HISTORY</h3>
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-primary"></div> CPU Load</span>
+                  <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-green-500"></div> Cost</span>
                 </div>
-                <div className="text-xl font-bold text-primary">
-                  ${totalCost.toFixed(4)}
+              </div>
+              <div className="h-[200px] w-full bg-background border rounded-lg p-2">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={chartData}>
+                    <defs>
+                      <linearGradient id="colorCpu" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="var(--color-primary)" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="var(--color-primary)" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <XAxis dataKey="time" hide />
+                    <YAxis hide domain={[0, 100]} />
+                    <Tooltip 
+                      contentStyle={{ backgroundColor: 'var(--background)', borderColor: 'var(--border)' }}
+                      itemStyle={{ color: 'var(--foreground)' }}
+                    />
+                    <Area 
+                      type="monotone" 
+                      dataKey="cpu" 
+                      stroke="var(--color-primary)" 
+                      fillOpacity={1} 
+                      fill="url(#colorCpu)" 
+                      isAnimationActive={false}
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            {/* Consolidated Metrics Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              <div className="space-y-1">
+                <div className="text-[10px] text-muted-foreground font-mono uppercase">CPU Load</div>
+                <div className="flex items-end gap-2">
+                  <span className="text-xl font-bold font-mono">{cpuLoad.toFixed(0)}%</span>
+                  <span className="text-xs text-muted-foreground mb-1">
+                    ${(cpuLoad * PRICING.CPU).toFixed(5)}/hr
+                  </span>
                 </div>
-                <div className="text-[10px] text-muted-foreground mt-1">
-                  Total Resources
+                <Progress value={cpuLoad} className="h-1" />
+              </div>
+              
+              <div className="space-y-1">
+                <div className="text-[10px] text-muted-foreground font-mono uppercase">RAM Usage</div>
+                <div className="flex items-end gap-2">
+                  <span className="text-xl font-bold font-mono">{ramUsage.toFixed(0)}MB</span>
+                  <span className="text-xs text-muted-foreground mb-1">
+                    ${(ramUsage * PRICING.RAM).toFixed(5)}/hr
+                  </span>
+                </div>
+                <Progress value={(ramUsage / 128) * 100} className="h-1" />
+              </div>
+              
+              <div className="space-y-1">
+                <div className="text-[10px] text-muted-foreground font-mono uppercase">Bandwidth</div>
+                <div className="flex items-end gap-2">
+                  <span className="text-xl font-bold font-mono">{bandwidthRate.toFixed(1)}</span>
+                  <span className="text-xs text-muted-foreground mb-1">MB/hr</span>
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  ${(bandwidthRate * PRICING.BANDWIDTH).toFixed(5)}/hr
                 </div>
               </div>
               
-              <div className="bg-green-500/5 border border-green-500/20 rounded-lg p-3">
-                <div className="text-[10px] font-mono text-green-600 dark:text-green-400 uppercase mb-1 flex items-center gap-1">
-                  <Activity className="h-3 w-3" /> Value
+              <div className="space-y-1">
+                <div className="text-[10px] text-muted-foreground font-mono uppercase">Electricity</div>
+                <div className="flex items-end gap-2">
+                  <span className="text-xl font-bold font-mono">{electricityRate.toFixed(3)}</span>
+                  <span className="text-xs text-muted-foreground mb-1">kWh</span>
                 </div>
-                <div className="text-xl font-bold text-green-600 dark:text-green-400">
+                <div className="text-xs text-muted-foreground">
+                  ${(electricityRate * PRICING.ELECTRICITY).toFixed(5)}/hr
+                </div>
+              </div>
+            </div>
+
+            {/* Real-time ROI Comparison & Ratio - Consolidated */}
+            <div className="mt-auto grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t">
+              <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 flex flex-col justify-center">
+                <div className="text-[10px] font-mono text-primary uppercase mb-1 flex items-center gap-1">
+                  <Zap className="h-3 w-3" /> Total Cost
+                </div>
+                <div className="text-2xl font-bold text-primary truncate" title={`$${totalCost.toFixed(8)}`}>
+                  ${totalCost.toFixed(6)}
+                </div>
+                <div className="text-[10px] text-muted-foreground mt-1">
+                  Resources Consumed
+                </div>
+              </div>
+              
+              <div className="bg-green-500/5 border border-green-500/20 rounded-lg p-4 flex flex-col justify-center">
+                <div className="text-[10px] font-mono text-green-600 dark:text-green-400 uppercase mb-1 flex items-center gap-1">
+                  <Activity className="h-3 w-3" /> Value Generated
+                </div>
+                <div className="text-2xl font-bold text-green-600 dark:text-green-400">
                   ${moneySaved.toFixed(2)}
                 </div>
                 <div className="text-[10px] text-muted-foreground mt-1">
                   Time Savings
                 </div>
               </div>
-            </div>
 
-            {/* ROI Ratio Badge */}
-            {totalCost > 0 && (
-              <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg p-3 text-center shadow-lg animate-in fade-in zoom-in duration-300">
-                <div className="text-xs font-medium opacity-90 mb-1">RETURN ON SPEND</div>
-                <div className="text-2xl font-bold tracking-tight">
-                  {(moneySaved / (totalCost || 1)).toFixed(0)}x ROI
+              {/* ROI Ratio Badge */}
+              <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg p-4 flex flex-col justify-center text-center shadow-lg">
+                <div className="text-[10px] font-medium opacity-90 mb-1 uppercase">Return on Spend</div>
+                <div className="text-3xl font-bold tracking-tight">
+                  {totalCost > 0 ? (moneySaved / totalCost).toFixed(0) : "0"}x
                 </div>
                 <div className="text-[10px] opacity-75 mt-1">
-                  For every $1 spent, you save ${(moneySaved / (totalCost || 1)).toFixed(0)}
+                  ROI Multiplier
                 </div>
               </div>
-            )}
-            
-            <div className="space-y-2 pt-4 border-t">
-              <div className="text-xs font-mono text-muted-foreground">CAMPAIGN STATUS</div>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle2 className={`h-4 w-4 ${messagesSent > 0 ? "text-green-500" : "text-muted-foreground"}`} />
-                  <span>Queue Processing</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle2 className={`h-4 w-4 ${totalCost > 0 ? "text-green-500" : "text-muted-foreground"}`} />
-                  <span>Resource Tracking</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle2 className={`h-4 w-4 ${totalCost > 0.001 ? "text-green-500" : "text-muted-foreground"}`} />
-                  <span>Cost Optimization</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Real-time Metrics */}
-          <div className="p-6 space-y-6 lg:col-span-2">
-            <div className="grid sm:grid-cols-2 gap-6">
-              {/* CPU Metric */}
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <div className="flex items-center gap-2">
-                    <Cpu className="h-4 w-4 text-muted-foreground" />
-                    <span>CPU Load</span>
-                  </div>
-                  <span className="font-mono">{cpuLoad.toFixed(1)}%</span>
-                </div>
-                <Progress value={cpuLoad} className="h-2" />
-                <div className="text-xs text-muted-foreground font-mono text-right">
-                  ${(cpuLoad * PRICING.CPU).toFixed(6)}/hr
-                </div>
-              </div>
-              
-              {/* RAM Metric */}
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <div className="flex items-center gap-2">
-                    <Database className="h-4 w-4 text-muted-foreground" />
-                    <span>RAM Usage</span>
-                  </div>
-                  <span className="font-mono">{ramUsage.toFixed(1)} MB</span>
-                </div>
-                <Progress value={(ramUsage / 128) * 100} className="h-2" />
-                <div className="text-xs text-muted-foreground font-mono text-right">
-                  ${(ramUsage * PRICING.RAM).toFixed(6)}/hr
-                </div>
-              </div>
-              
-              {/* Bandwidth Metric */}
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <div className="flex items-center gap-2">
-                    <Wifi className="h-4 w-4 text-muted-foreground" />
-                    <span>Bandwidth</span>
-                  </div>
-                  <span className="font-mono">{bandwidthRate.toFixed(2)} MB/hr</span>
-                </div>
-                <Progress value={(bandwidthRate / 10) * 100} className="h-2" />
-                <div className="text-xs text-muted-foreground font-mono text-right">
-                  ${(bandwidthRate * PRICING.BANDWIDTH).toFixed(6)}/hr
-                </div>
-              </div>
-              
-              {/* Electricity Metric */}
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <div className="flex items-center gap-2">
-                    <Zap className="h-4 w-4 text-muted-foreground" />
-                    <span>Electricity</span>
-                  </div>
-                  <span className="font-mono">{electricityRate.toFixed(4)} kW</span>
-                </div>
-                <Progress value={(electricityRate / 0.1) * 100} className="h-2" />
-                <div className="text-xs text-muted-foreground font-mono text-right">
-                  ${(electricityRate * PRICING.ELECTRICITY).toFixed(6)}/hr
-                </div>
-              </div>
-            </div>
-            
-            {/* Live Chart */}
-            <div className="h-[200px] w-full mt-8 border rounded-lg p-4 bg-background/50">
-              <div className="text-xs font-mono text-muted-foreground mb-2">RESOURCE USAGE HISTORY</div>
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={chartData}>
-                  <defs>
-                    <linearGradient id="colorCpu" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="var(--primary)" stopOpacity={0}/>
-                    </linearGradient>
-                  </defs>
-                  <XAxis dataKey="time" hide />
-                  <YAxis hide />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: 'var(--background)', 
-                      borderColor: 'var(--border)',
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '12px'
-                    }} 
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="cpu" 
-                    stroke="var(--primary)" 
-                    fillOpacity={1} 
-                    fill="url(#colorCpu)" 
-                    isAnimationActive={false}
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
             </div>
           </div>
         </div>
