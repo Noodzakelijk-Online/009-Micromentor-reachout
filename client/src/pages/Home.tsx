@@ -14,7 +14,8 @@ import {
   Terminal,
   Activity,
   Database,
-  Wifi
+  Wifi,
+  Menu
 } from "lucide-react";
 import { motion } from "framer-motion";
 import ResourceDemo from "@/components/ResourceDemo";
@@ -35,22 +36,41 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-background font-sans selection:bg-primary/20">
       {/* Navigation */}
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md shadow-sm transition-all duration-300">
         <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center gap-2 font-bold text-xl tracking-tighter">
-            <img src="/images/maro-logo.svg" alt="MARO Logo" className="h-8 w-8" />
-            <span>MARO</span>
+          <div className="flex items-center gap-2 font-bold text-xl tracking-tighter group cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <div className="relative">
+              <div className="absolute inset-0 bg-primary/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
+              <img src="/images/maro-logo.svg" alt="MARO Logo" className="h-8 w-8 relative z-10 transition-transform duration-300 group-hover:scale-110" />
+            </div>
+            <span className="group-hover:text-primary transition-colors duration-300">MARO</span>
           </div>
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-            <button onClick={() => scrollToSection('features')} className="hover:text-primary transition-colors">Features</button>
-            <button onClick={() => scrollToSection('pricing')} className="hover:text-primary transition-colors">Pricing</button>
-            <button onClick={() => scrollToSection('specs')} className="hover:text-primary transition-colors">Specs</button>
+            <button onClick={() => scrollToSection('features')} className="hover:text-primary transition-colors relative group">
+              Features
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+            </button>
+            <button onClick={() => scrollToSection('pricing')} className="hover:text-primary transition-colors relative group">
+              Pricing
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+            </button>
+            <button onClick={() => scrollToSection('specs')} className="hover:text-primary transition-colors relative group">
+              Specs
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+            </button>
           </nav>
           <div className="flex items-center gap-4">
-            <Button onClick={handleDownload} className="rounded-none font-mono text-xs font-bold uppercase tracking-wider">
+            <Button onClick={handleDownload} className="hidden md:flex rounded-none font-mono text-xs font-bold uppercase tracking-wider shadow-lg hover:shadow-primary/25 transition-all hover:-translate-y-0.5">
               <Download className="mr-2 h-4 w-4" />
               Download v1.0
             </Button>
+            
+            {/* Mobile Menu Trigger */}
+            <div className="md:hidden flex items-center">
+              <Button variant="ghost" size="icon" className="hover:bg-primary/10">
+                <Menu className="h-6 w-6" />
+              </Button>
+            </div>
           </div>
         </div>
       </header>
