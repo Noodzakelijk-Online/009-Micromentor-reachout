@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { 
   Activity, 
   Cpu, 
@@ -32,11 +34,11 @@ const PRICING = {
 const TIME_PER_MESSAGE_MIN = 2; // Minutes to manually send one message
 const FOLLOW_UPS_PER_NEW = 3; // 3 follow-ups for every 1 new message
 const RESPONSE_RATE = 0.015; // 1.5% response rate
-const HOURLY_RATE_2026 = 25; // $25/hr base rate in 2026
 
 export default function ResourceDemo() {
   const [isRunning, setIsRunning] = useState(false);
   const [speed, setSpeed] = useState(1);
+  const [hourlyRate, setHourlyRate] = useState(25);
   const [messagesSent, setMessagesSent] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
   
@@ -100,7 +102,7 @@ export default function ResourceDemo() {
             setWastedTimeAvoidedMin(wastedAvoided);
 
             // Money saved = (Total time saved in hours) * Hourly Rate
-            const money = (totalSaved / 60) * HOURLY_RATE_2026;
+            const money = (totalSaved / 60) * hourlyRate;
             setMoneySaved(money);
             
             return newCount;
@@ -211,6 +213,17 @@ export default function ResourceDemo() {
                 className="py-2"
               />
             </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="hourly-rate" className="text-xs font-mono text-muted-foreground">YOUR HOURLY RATE ($)</Label>
+              <Input 
+                id="hourly-rate"
+                type="number" 
+                value={hourlyRate} 
+                onChange={(e) => setHourlyRate(Number(e.target.value))}
+                className="font-mono"
+              />
+            </div>
             
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-background border p-4 rounded-lg">
@@ -259,7 +272,7 @@ export default function ResourceDemo() {
               </div>
               
               <div className="text-[10px] text-muted-foreground mt-2 italic">
-                *Based on $25/hr (2026 avg) & 2min/msg manual effort
+                *Based on your rate & 2min/msg manual effort
               </div>
             </div>
             

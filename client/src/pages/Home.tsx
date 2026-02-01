@@ -240,10 +240,56 @@ export default function Home() {
             <img src="/images/pricing-bg.png" alt="Background" className="w-full h-full object-cover" />
           </div>
           <div className="container">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">Pay Pennies. Save Hundreds.</h2>
+              <p className="text-lg text-muted-foreground max-w-[700px] mx-auto">
+                Why pay a flat subscription when you can pay for exactly what you use? 
+                Spend less than a dollar to save hundreds in billable hours.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 items-center mb-16 max-w-4xl mx-auto">
+              <Card className="border-2 border-primary/20 bg-primary/5">
+                <CardHeader>
+                  <CardTitle className="font-mono text-lg flex items-center gap-2">
+                    <Zap className="h-5 w-5 text-primary" />
+                    Typical Campaign Cost
+                  </CardTitle>
+                  <CardDescription>Sending 100 messages</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-5xl font-bold mb-2 text-primary">$0.42</div>
+                  <div className="text-sm text-muted-foreground">Total Resource Cost</div>
+                  <Separator className="my-4 bg-primary/20" />
+                  <p className="text-sm text-muted-foreground">
+                    Includes CPU, RAM, Bandwidth, and Electricity for a full outreach campaign.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 border-green-500/20 bg-green-500/5">
+                <CardHeader>
+                  <CardTitle className="font-mono text-lg flex items-center gap-2 text-green-600 dark:text-green-400">
+                    <Clock className="h-5 w-5" />
+                    Value Generated
+                  </CardTitle>
+                  <CardDescription>Time saved @ $25/hr</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-5xl font-bold mb-2 text-green-600 dark:text-green-400">$83.00</div>
+                  <div className="text-sm text-muted-foreground">Est. Cost Savings</div>
+                  <Separator className="my-4 bg-green-500/20" />
+                  <p className="text-sm text-muted-foreground">
+                    Based on saving ~3.3 hours of manual work sending 100 personalized messages.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-6">Transparent, Usage-Based Pricing</h2>
-                <p className="text-lg text-muted-foreground mb-8">
+                <h3 className="text-2xl font-bold tracking-tighter mb-6">Transparent Resource Rates</h3>
+                <p className="text-muted-foreground mb-8">
                   No monthly subscriptions. No hidden fees. Our revolutionary pricing model charges you based strictly on the computing resources you consume.
                 </p>
                 
