@@ -248,42 +248,14 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 items-center mb-16 max-w-4xl mx-auto">
-              <Card className="border-2 border-primary/20 bg-primary/5">
-                <CardHeader>
-                  <CardTitle className="font-mono text-lg flex items-center gap-2">
-                    <Zap className="h-5 w-5 text-primary" />
-                    Typical Campaign Cost
-                  </CardTitle>
-                  <CardDescription>Sending 100 messages</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-5xl font-bold mb-2 text-primary">$0.42</div>
-                  <div className="text-sm text-muted-foreground">Total Resource Cost</div>
-                  <Separator className="my-4 bg-primary/20" />
-                  <p className="text-sm text-muted-foreground">
-                    Includes CPU, RAM, Bandwidth, and Electricity for a full outreach campaign.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 border-green-500/20 bg-green-500/5">
-                <CardHeader>
-                  <CardTitle className="font-mono text-lg flex items-center gap-2 text-green-600 dark:text-green-400">
-                    <Clock className="h-5 w-5" />
-                    Value Generated
-                  </CardTitle>
-                  <CardDescription>Time saved @ $25/hr</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-5xl font-bold mb-2 text-green-600 dark:text-green-400">$83.00</div>
-                  <div className="text-sm text-muted-foreground">Est. Cost Savings</div>
-                  <Separator className="my-4 bg-green-500/20" />
-                  <p className="text-sm text-muted-foreground">
-                    Based on saving ~3.3 hours of manual work sending 100 personalized messages.
-                  </p>
-                </CardContent>
-              </Card>
+            <div className="text-center mb-16 max-w-4xl mx-auto">
+              <div className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full font-mono text-sm font-bold mb-6">
+                LIVE DEMO ABOVE
+              </div>
+              <p className="text-muted-foreground">
+                Check the interactive simulation above to see the real-time cost vs. savings breakdown. 
+                Our users typically see a <span className="font-bold text-foreground">200x Return on Spend</span> for every campaign.
+              </p>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-16 items-center">

@@ -275,6 +275,46 @@ export default function ResourceDemo() {
                 *Based on your rate & 2min/msg manual effort
               </div>
             </div>
+
+            {/* Real-time ROI Comparison */}
+            <div className="grid grid-cols-2 gap-4 pt-4 border-t">
+              <div className="bg-primary/5 border border-primary/20 rounded-lg p-3">
+                <div className="text-[10px] font-mono text-primary uppercase mb-1 flex items-center gap-1">
+                  <Zap className="h-3 w-3" /> Cost
+                </div>
+                <div className="text-xl font-bold text-primary">
+                  ${totalCost.toFixed(4)}
+                </div>
+                <div className="text-[10px] text-muted-foreground mt-1">
+                  Total Resources
+                </div>
+              </div>
+              
+              <div className="bg-green-500/5 border border-green-500/20 rounded-lg p-3">
+                <div className="text-[10px] font-mono text-green-600 dark:text-green-400 uppercase mb-1 flex items-center gap-1">
+                  <Activity className="h-3 w-3" /> Value
+                </div>
+                <div className="text-xl font-bold text-green-600 dark:text-green-400">
+                  ${moneySaved.toFixed(2)}
+                </div>
+                <div className="text-[10px] text-muted-foreground mt-1">
+                  Time Savings
+                </div>
+              </div>
+            </div>
+
+            {/* ROI Ratio Badge */}
+            {totalCost > 0 && (
+              <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg p-3 text-center shadow-lg animate-in fade-in zoom-in duration-300">
+                <div className="text-xs font-medium opacity-90 mb-1">RETURN ON SPEND</div>
+                <div className="text-2xl font-bold tracking-tight">
+                  {(moneySaved / (totalCost || 1)).toFixed(0)}x ROI
+                </div>
+                <div className="text-[10px] opacity-75 mt-1">
+                  For every $1 spent, you save ${(moneySaved / (totalCost || 1)).toFixed(0)}
+                </div>
+              </div>
+            )}
             
             <div className="space-y-2 pt-4 border-t">
               <div className="text-xs font-mono text-muted-foreground">CAMPAIGN STATUS</div>
